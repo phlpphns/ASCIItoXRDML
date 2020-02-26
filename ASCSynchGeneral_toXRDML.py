@@ -3,6 +3,12 @@
 #
 #   ASCSynchMythen_toXRDML.py
 #
+#   takes Mhythen input that has gaps. Does interpolation and saves to the PANalytical xrdml format 
+#   some sections are commented
+#
+#   serious improvement appreciated
+#   give wavelength as first argument in command line 
+#
 
 import numpy
 import sys
@@ -28,10 +34,11 @@ for fileName in sys.argv[2:]:
     x_new = numpy.arange(startPosition, endPosition, stepSize)
     #x_new = numpy.linspace(startPosition, endPosition, num=len(thetas), endpoint=True)
     intensities = f(x_new)
-    plt.plot(thetas, intensities_raw, label="raw")
-    plt.plot(x_new, intensities, label="inter")
-    plt.legend()
-    plt.show()
+    # plotting section commented
+    # plt.plot(thetas, intensities_raw, label="raw")
+    # plt.plot(x_new, intensities, label="inter")
+    # plt.legend()
+    # plt.show()
 
     print(stepSize)
     print(thetas)
@@ -49,14 +56,14 @@ for fileName in sys.argv[2:]:
         print('		<entry>Configuration=SynchrotronMeasurement - Mythen</entry>', file=file)
         print('		<entry>Goniometer=PW3050/60 (Theta/Theta); Minimum step size 2Theta:0.001; Minimum step size Omega:0.001</entry>', file=file)
         print('		<entry>Sample stage=Capillary</entry>', file=file)
-        print('		<entry>Diffractometer system=Diamond Beamline I11</entry>', file=file)
+        print('		<entry>Diffractometer system=SLS M04</entry>', file=file)
         print('		<entry>Measurement program=Hans_XCEL_5_136_30min_rot, Owner=Hans, Creation date=21.04.2015 20:53:27</entry>', file=file)
         print('        </comment>', file=file)
         
         print('        <sample type="To be analyzed">', file=file)
         print('                <id>',fileName.split(sep='.')[0],'</id>', sep='',  file=file)
         print('                <name>',fileName.split(sep='.')[0],'</name>', sep='', file=file)
-        print('                <preparedBy>Nevzat Yigit and Philipp Hans</preparedBy>', file=file)
+        print('                <preparedBy>Philipp Hans</preparedBy>', file=file)
         print('        </sample>', file=file)
         
         print('        <xrdMeasurement measurementType="Scan" status="Completed" sampleMode="Reflection">', file=file)
